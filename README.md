@@ -18,3 +18,18 @@ void main() {
     stream.add('hello world');
 }
 ```
+
+## Custom Events
+``` Dart
+class HelloWorld {
+  final String message;
+  HelloWorld(this.message);
+}
+
+stream.subscribe((HelloWorld helloWorld) async {
+    // business logic goes here
+    print(helloWorld.message);
+});
+
+stream.add(HelloWorld('testing'));
+```
