@@ -1,40 +1,44 @@
 library event_stream;
 
-import 'event_stream_exception.dart';
-import 'event_streamer.dart';
-import 'recording.dart';
+import 'subscription_exception.dart';
+import 'memory.dart';
 import 'reaction.dart';
 import 'subscription.dart';
 
-class EventStream extends EventStreamer {
+class NeuralStream {
+
+  final String name;
   List<Subscription> _subscriptions = [];
 
-  @override
-  void add<T>(T trigger) {
+  NeuralStream({this.name});
 
+  void add<T>(T trigger) {
     if (trigger == null) return;
 
     _subscriptions
         .where((subscription) => subscription.canHandle(trigger))
         .forEach((subscription) {
-      EventStreamException eventStreamException;
 
+      SubscriptionException subscriptionException;
       DateTime started = DateTime.now();
 
-      Future futureResult = subscription.handle(trigger).catchError((error, stacktrace) {
-        eventStreamException = EventStreamException(error, stacktrace, trigger);
-        add(eventStreamException);
+      Future futureResult =
+          subscription.handle(trigger).catchError((error, stacktrace) {
+        subscriptionException = SubscriptionException(error, subscription, stacktrace, trigger);
+        add(subscriptionException);
         return null;
       });
 
       futureResult.then((output) {
-        add(Recording(
-            subscription: subscription,
-            input: trigger,
-            output: output,
-            error: eventStreamException,
-            started: started,
-            ended: DateTime.now()));
+        if (subscription.remember) {
+          Memory recording = Memory(
+              input: trigger,
+              output: output,
+              error: subscriptionException,
+              started: started,
+              ended: DateTime.now());
+          subscription.memories.add(recording);
+        }
 
         if (output == null) return;
 
@@ -48,22 +52,18 @@ class EventStream extends EventStreamer {
     });
   }
 
-  @override
-  Subscription subscribe<T>(Reaction<T> function,
-      {String description, bool enabled = true, int maxCalls}) {
+  Subscription<T> listen<T>(Reaction<T> function,
+      {String description, bool enabled = true, int max}) {
 
     final Subscription subscription = Subscription<T>(
-        stream: this,
         function: function,
         description: description,
         enabled: enabled,
-        maxCalls: maxCalls
-    );
+        maxCalls: max);
     _subscriptions.add(subscription);
     return subscription;
   }
 
-  @override
   void cancel(Subscription subscription) {
     _subscriptions.remove(subscription);
   }

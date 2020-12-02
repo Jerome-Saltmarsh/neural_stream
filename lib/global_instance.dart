@@ -1,6 +1,5 @@
 library event_stream;
 
-import 'event_streamer.dart';
-import 'event_stream.dart';
+import 'neural_stream.dart';
 
-EventStreamer eventStream = EventStream();
+NeuralStream globalNeuralStream = NeuralStream();

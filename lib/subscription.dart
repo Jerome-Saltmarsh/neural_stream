@@ -1,18 +1,29 @@
 library event_stream;
 
-import 'event_stream.dart';
 import 'reaction.dart';
+import 'memory.dart';
 
+/// A Neuron
 class Subscription<T> {
-
+  // injected
   final String description;
-  final EventStream stream;
   final Reaction<T> function;
-  bool enabled = true;
-  int maxCalls;
-  int _calls = 0;
+  final int maxCalls;
+  final List<Memory> memories = [];
 
-  Subscription({this.stream, this.function, this.enabled, this.description, this.maxCalls});
+  // variables
+  bool enabled;
+  // private
+  int _calls = 0;
+  bool remember;
+
+  Subscription({
+    this.function,
+    this.description,
+    this.maxCalls,
+    this.remember = true,
+    this.enabled = true,
+  });
 
   Future handle(var value) async {
     _calls++;
@@ -26,7 +37,8 @@ class Subscription<T> {
     return enabled && value is T;
   }
 
-  void cancel(){
-    stream.cancel(this);
+  @override
+  String toString() {
+    return 'Subscription{description: $description, function: $function, maxCalls: $maxCalls, enabled: $enabled, _calls: $_calls, remember: $remember}';
   }
 }

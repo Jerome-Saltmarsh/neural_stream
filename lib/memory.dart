@@ -1,22 +1,23 @@
 library event_stream;
 
-import 'event_stream_exception.dart';
-import 'subscription.dart';
+import 'subscription_exception.dart';
 
-class Recording {
-  final Subscription subscription;
+class Memory {
   final dynamic input;
   final dynamic output;
   final DateTime started;
   final DateTime ended;
-  final EventStreamException error;
+  final SubscriptionException error;
 
-  Recording({
-    this.subscription,
+  Memory({
     this.input,
     this.output,
     this.started,
     this.ended,
     this.error
   });
+}
+
+extension MemoryExtensions on Memory {
+  Duration get duration => started.difference(ended);
 }
