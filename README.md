@@ -8,13 +8,19 @@ import 'package:event_stream/event_stream.dart';
 
 void main() {
 
-    EventStream stream = EventStream();
-
-    stream.subscribe((String text) async {
-        print('subscription: $text');
+    NeuralStream stream = NeuralStream();
+    
+    stream.listen((String text) async {
+        print('sub: $text');
     });
-
-    stream.add('hello world');
+    
+    stream.listen((int number) async {
+        // a value returned will be added back into the stream.
+        return (number + number).toString(); // this will trigger the text listener.
+    });
+    
+    stream.add('hello'); // output: sub: hello
+    stream.add(2); // output: sub: 4
 }
 ```
 
@@ -34,6 +40,10 @@ stream.subscribe((HelloWorld helloWorld) async {
 
 stream.add(HelloWorld('this is an example'));
 ```
+
+## Multiple subscriptions of same type
+You are not bound to listening to a trigger by just one listener
+Any number of listeners of the same type can be created.
 
 ## Why Super Stream?
 A normal stream is bound to a specific type <T> which means that one needs many streams to support

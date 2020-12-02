@@ -3,6 +3,24 @@ import 'package:neural_stream/neural_stream.dart';
 import 'package:test/test.dart';
 
 void main() {
+
+  test('hello world', () async {
+
+    NeuralStream stream = NeuralStream();
+
+    stream.listen((String text) async {
+      print('sub: $text');
+    });
+    stream.listen((int number) async {
+      // a value returned will be added back into the stream.
+      return (number + number).toString(); // this will trigger the text listener.
+    });
+
+    stream.add('hello'); // output: sub: hello
+    stream.add(2); // output: sub: 4
+  });
+
+
   test('Neural Stream Test', () async {
 
     NeuralStream stream = NeuralStream();
