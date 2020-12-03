@@ -1,21 +1,22 @@
 library event_stream;
 
 import 'subscription_exception.dart';
-import 'memory.dart';
+import 'call.dart';
 import 'reaction.dart';
 import 'subscription.dart';
+
 
 class NeuralStream {
 
   final String name;
-  List<Subscription> _subscriptions = [];
+  List<Subscription> subscriptions = [];
 
   NeuralStream({this.name});
 
   void add<T>(T trigger) {
     if (trigger == null) return;
 
-    _subscriptions
+    subscriptions
         .where((subscription) => subscription.canHandle(trigger))
         .forEach((subscription) {
 
@@ -31,13 +32,13 @@ class NeuralStream {
 
       futureResult.then((output) {
         if (subscription.remember) {
-          Memory recording = Memory(
+          Call call = Call(
               input: trigger,
               output: output,
               error: subscriptionException,
               started: started,
               ended: DateTime.now());
-          subscription.memories.add(recording);
+          subscription.calls.add(call);
         }
 
         if (output == null) return;
@@ -60,15 +61,17 @@ class NeuralStream {
         description: description,
         enabled: enabled,
         maxCalls: max);
-    _subscriptions.add(subscription);
+    subscriptions.add(subscription);
     return subscription;
   }
 
   void cancel(Subscription subscription) {
-    _subscriptions.remove(subscription);
+    subscriptions.remove(subscription);
   }
 }
 
+/// This is used to cancel a subscription from within a computation
+/// if the computation returns this object its subscription will be cancelled
 class CancelSubscription {
   final Subscription subscription;
 

@@ -2,14 +2,14 @@ library event_stream;
 
 import 'subscription_exception.dart';
 
-class Memory {
+class Call {
   final dynamic input;
   final dynamic output;
   final DateTime started;
   final DateTime ended;
   final SubscriptionException error;
 
-  Memory({
+  Call({
     this.input,
     this.output,
     this.started,
@@ -18,6 +18,7 @@ class Memory {
   });
 }
 
-extension MemoryExtensions on Memory {
+extension CallExtensions on Call {
   Duration get duration => started.difference(ended);
+  bool get hasError => error != null;
 }

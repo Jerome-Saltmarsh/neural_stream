@@ -1,8 +1,18 @@
 # Neural Stream
-A library for neurologically oriented programming
+A library for neurologically oriented programming.
+
+1. Not type bound
+Unlike a regular stream a neural stream is not bound to a specific type. 
+This allows the user to manage all their events from a single stream.
+
+2. Automatic event chaining
+Another key difference of the neural stream is that the output of a listener will automatically be passed back through the stream.
+The same is true for any exceptions which are thrown during a listener's computation.
+
+This provides a mechanism for chaining reactions together without pulling the stream into the 
+scope of the reaction. 
 
 ## Getting Started
-
 ``` Dart
 import 'package:event_stream/event_stream.dart';
 
@@ -15,7 +25,7 @@ void main() {
     });
     
     stream.listen((int number) async {
-        // a value returned will be added back into the stream.
+        // any value returned by a computation will automatically be added back into the stream.
         return (number + number).toString(); // this will trigger the text listener.
     });
     
@@ -24,10 +34,8 @@ void main() {
 }
 ```
 
-## Custom Events
-You can subscribe to as many different types as you want.
-Note that a trigger should be immutable
-
+## Trigger Custom Events
+You can subscribe to any type. *Note a trigger should be immutable.*
 ``` Dart
 class HelloWorld {
   final String message;
@@ -44,8 +52,40 @@ stream.add(HelloWorld('this is an example'));
 ## Multiple subscriptions of same type
 You are not bound to listening to a trigger by just one listener
 Any number of listeners of the same type can be created.
+``` Dart
+NeuralStream stream = NeuralStream();
+    
+stream.listen((String text) async {
+    print('sub 1: $text');
+});
+stream.listen((String text) async {
+    print('sub 2: $text');
+});
 
-## Why Super Stream?
+stream.add('hello'); 
+// output: sub 1: hello
+// output: sub 2: hello
+```
+
+## Subscriptions are configurable
+``` Dart
+NeuralStream stream = NeuralStream();
+
+stream.listen((String text) async {
+    print('sub 1: $text');
+}, max: 2);
+
+stream.add('hello 1'); // output: sub: hello
+stream.add('hello 2'); // output: sub: hello
+stream.add('hello 3'); // output: sub: hello
+
+// output
+// sub 1: hello 1
+// sub 1: hello 2
+```
+
+
+## Why Neural Stream?
 A normal stream is bound to a specific type <T> which means that one needs many streams to support
 different kinds of events. Super stream is not bound to a generic and can receive any object type
 
@@ -55,14 +95,16 @@ having to connect them.
 
 
 ## Neurologically Oriented Programming
-I took the inspiration for this architecture from the brain. 
+The inspiration for this architecture came from the brain. 
 
-Each subscription represents a neuron. When a signal is passed through the brain a neuron is either
-activated or not, when it is activated it does some computation and then can produce a new signal
-which will be once again passed to all the other neurons in the brain via synapses.
+Our brain consists of a network of neurons. Signals travel through our brain from neuron to neuron
+either activating it or not. 
 
-This is useful because the neuron doesn't have to know anything about the rest of the brain, it 
-simply produces a signal and its job is finished.
+If a neuron is activated it performs some kind of computation and can then produce a new signal
+which will be once again passed to all the other neurons in the brain.
+
+This structure is useful because the neuron doesn't have to know anything about the rest of the brain, it 
+simply produces a signal and its job is finished. 
 
 
 

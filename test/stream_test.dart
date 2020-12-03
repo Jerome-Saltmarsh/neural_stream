@@ -20,6 +20,19 @@ void main() {
     stream.add(2); // output: sub: 4
   });
 
+  test('limited calls', () async {
+
+    NeuralStream stream = NeuralStream();
+
+    stream.listen((String text) async {
+      print('sub 1: $text');
+    }, max: 2);
+
+    stream.add('hello 1'); // output: sub: hello
+    stream.add('hello 2'); // output: sub: hello
+    stream.add('hello 3'); // output: sub: hello
+  });
+
 
   test('Neural Stream Test', () async {
 

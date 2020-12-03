@@ -1,7 +1,7 @@
 name: neural_stream
 description: A library for neurologically oriented programming
-version: 0.0.1
-homepage: https://github.com/Jerome-Saltmarsh/event_stream
+version: 0.0.6
+homepage: https://github.com/Jerome-Saltmarsh/neural_stream
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
