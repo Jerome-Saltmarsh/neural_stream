@@ -33,6 +33,19 @@ void main() {
     stream.add('hello 3'); // output: sub: hello
   });
 
+  test('cancel subscription', () async {
+
+    NeuralStream stream = NeuralStream();
+
+    Subscription<String> subscription = stream.listen((String text) async {
+      print('sub 1: $text');
+    });
+
+    stream.add('hello before subscription cancelled'); // output: sub: hello
+    stream.cancel(subscription);
+    stream.add('hello after subscription cancelled'); // output: sub: hello
+  });
+
 
   test('Neural Stream Test', () async {
 

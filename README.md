@@ -73,7 +73,7 @@ NeuralStream stream = NeuralStream();
 
 stream.listen((String text) async {
     print('sub 1: $text');
-}, max: 2);
+}, max: 2); // limit this subscription to listen to a maximum of 2 events
 
 stream.add('hello 1'); // output: sub: hello
 stream.add('hello 2'); // output: sub: hello
@@ -84,6 +84,19 @@ stream.add('hello 3'); // output: sub: hello
 // sub 1: hello 2
 ```
 
+## Cancel Subscriptions
+``` Dart
+NeuralStream stream = NeuralStream();
+
+Subscription<String> subscription = stream.listen((String text) async {
+    print('sub 1: $text');
+});
+
+stream.add('hello before subscription cancelled'); 
+stream.cancel(subscription);
+stream.add('hello after subscription cancelled'); 
+// output: sub 1: hello before subscription cancelled
+```
 
 ## Why Neural Stream?
 A normal stream is bound to a specific type <T> which means that one needs many streams to support
