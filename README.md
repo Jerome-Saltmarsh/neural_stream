@@ -75,9 +75,9 @@ stream.listen((String text) async {
     print('sub 1: $text');
 }, max: 2); // limit this subscription to listen to a maximum of 2 events
 
-stream.add('hello 1'); // output: sub: hello
-stream.add('hello 2'); // output: sub: hello
-stream.add('hello 3'); // output: sub: hello
+stream.add('hello 1'); 
+stream.add('hello 2'); 
+stream.add('hello 3'); 
 
 // output
 // sub 1: hello 1
