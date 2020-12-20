@@ -1,19 +1,23 @@
 # Neural Stream
-A library for neurologically oriented programming.
+Neural stream is a library designed to simplify reactive programming.
 
-1. **Not type bound**
+It provides an interface exactly like a normal stream to make it easy to pickup for 
+anyone already familiar with streams however it has several key differences.
+
+1. **Not Type Bound**
 Unlike a regular stream a neural stream is not bound to a specific type. 
 This allows the user to manage all their events from a single stream.
 
-2. **Automatic event chaining**
-A key difference to a regular stream is that the output of a listener, that is the value returned by
-the listen function will automatically be fed back through the stream.
-The same is true for any exceptions which are thrown during a listener's computation.
+2. **Automatic Event Chaining**
+A key difference to a regular stream is that the return value of a listener function is 
+automatically be fed back into the stream.
 
 This provides a mechanism for chaining reactions together without pulling the stream into the 
 scope of the reaction. 
 
-## Getting Started
+The same is occurs with any exceptions thrown during a listener's computation.
+
+## Hello World
 ``` Dart
 import 'package:event_stream/event_stream.dart';
 
@@ -25,13 +29,7 @@ void main() {
         print('sub: $text');
     });
     
-    stream.listen((int number) async {
-        // any value returned by a computation will automatically be added back into the stream.
-        return (number + number).toString(); // this will trigger the text listener.
-    });
-    
-    stream.add('hello'); // output: sub: hello
-    stream.add(2); // output: sub: 4
+    stream.add('hello world'); // output: 'sub: hello world'
 }
 ```
 
