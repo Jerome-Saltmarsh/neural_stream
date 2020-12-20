@@ -1,5 +1,6 @@
 # Neural Stream
-Neural stream is a library designed to simplify reactive programming.
+Neural stream is a library designed to simplify reactive programming and introduces a new paradigm 
+called neurologically oriented programming.
 
 It provides an interface exactly like a normal stream to make it easy to pickup for anyone already 
 familiar with streams however with several key differences.
@@ -11,8 +12,8 @@ events.
 2. **Automatic Event Chaining**
 If a stream's listener function returns a value, that value will automatically be fed back into the 
 stream. This provides a mechanism for chaining reactions together without the listener function 
-itself having to be aware of the stream. The same occurs to any exceptions thrown inside listener 
-function
+itself having to be aware of the stream in which it is running. The same occurs to any exceptions 
+thrown inside listener function.
 
 ## Hello World
 ``` Dart
@@ -45,7 +46,7 @@ stream.listen((HelloWorld helloWorld) async {
 stream.add(HelloWorld('this is an example'));
 ```
 
-## Multiple subscriptions of same type
+## Multiple subscriptions of same type and different types
 Any number of listeners of the same type can be created.
 ``` Dart
 NeuralStream stream = NeuralStream();
@@ -56,10 +57,15 @@ stream.listen((String text) async {
 stream.listen((String text) async {
     print('sub 2: $text');
 });
+stream.listen((int value) async {
+    print('sub 3: ${value + value}');
+});
 
+// output: 'sub 1: hello'
+// output: 'sub 2: hello'
 stream.add('hello'); 
-// output: sub 1: hello
-// output: sub 2: hello
+
+stream.add(2); // outputs 'sub 3: 4' 
 ```
 
 ## Chain Reactions
