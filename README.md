@@ -4,9 +4,7 @@ Neural stream is a library designed to simplify reactive programming.
 It provides an interface exactly like a normal stream to make it easy to pickup for 
 anyone already familiar with streams however with several key differences.
 
-1. **Not Type Bound**
-
-Unlike a regular stream a neural stream is not bound to a specific type. 
+1. **Not Type Bound** \n Unlike a regular stream a neural stream is not bound to a specific type. 
 This allows the user to manage all their events from a single stream.
 
 2. **Automatic Event Chaining**
