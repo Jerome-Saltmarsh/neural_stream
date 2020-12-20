@@ -110,16 +110,12 @@ stream.add('hello after subscription cancelled');
 ```
 
 ## Neurologically Oriented Programming
-The inspiration for this architecture came from the brain. 
 
-Our brain consists of a network of neurons. Signals travel through our brain from neuron to neuron
-either activating it or not. 
+As you have likely assumed the term neural is refers to the brain. But what does a stream have to 
+do with neurology? 
 
-If a neuron is activated it performs some kind of computation and can then produce a new signal
-which will be once again passed to all the other neurons in the brain.
+From wikipedia 'A neural network is a network or circuit of neuron' 
 
-This structure is useful because the neuron doesn't have to know anything about the rest of the brain, it 
-simply produces a signal and its job is finished. 
-
-
+The neural stream is analogous to the brain. Each subscription is a neuron and the 'events' or 
+'triggers' represent the electric signals that pass through our brain.
 
