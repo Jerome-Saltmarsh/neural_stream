@@ -9,12 +9,8 @@ Unlike a regular stream a neural stream is not bound to a specific type.
 This allows the user to manage all their events from a single stream.
 
 2. **Automatic Event Chaining**
-If the listener function returns a value it will automatically be fed back into the stream.
-
-This provides a mechanism for chaining reactions together without pulling the stream into the 
-scope of the reaction. 
-
-The same is occurs with any exceptions thrown during a listener's computation.
+If the listener function returns a value it will automatically be fed back into the stream. This provides a mechanism for chaining reactions together without pulling the stream into the 
+scope of the reaction. The same is occurs with any exceptions thrown during a listener's computation.
 
 ## Hello World
 ``` Dart
