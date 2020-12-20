@@ -1,12 +1,13 @@
 # Neural Stream
 A library for neurologically oriented programming.
 
-1. Not type bound
+1. **Not type bound**
 Unlike a regular stream a neural stream is not bound to a specific type. 
 This allows the user to manage all their events from a single stream.
 
-2. Automatic event chaining
-Another key difference of the neural stream is that the output of a listener will automatically be passed back through the stream.
+2. **Automatic event chaining**
+A key difference to a regular stream is that the output of a listener, that is the value returned by
+the listen function will automatically be fed back through the stream.
 The same is true for any exceptions which are thrown during a listener's computation.
 
 This provides a mechanism for chaining reactions together without pulling the stream into the 
