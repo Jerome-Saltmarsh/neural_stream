@@ -12,7 +12,6 @@ class Subscription<T> {
   final List<Call> calls = [];
 
   bool enabled;
-  bool remember;
   int _totalCalls = 0;
 
   int get callCount => _totalCalls;
@@ -23,7 +22,6 @@ class Subscription<T> {
     this.function,
     this.description,
     this.maxCalls,
-    this.remember = true,
     this.enabled = true,
   });
 
@@ -41,6 +39,6 @@ class Subscription<T> {
 
   @override
   String toString() {
-    return 'Subscription{description: $description, function: $function, maxCalls: $maxCalls, enabled: $enabled, _calls: $_totalCalls, remember: $remember}';
+    return 'Subscription{description: $description, function: $function, maxCalls: $maxCalls, enabled: $enabled, _calls: $_totalCalls}';
   }
 }

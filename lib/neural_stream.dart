@@ -8,10 +8,7 @@ import 'subscription.dart';
 
 class NeuralStream {
 
-  final String name;
-  List<Subscription> subscriptions = [];
-
-  NeuralStream({this.name});
+  final List<Subscription> subscriptions = [];
 
   void add<T>(T trigger) {
     if (trigger == null) return;
@@ -31,15 +28,15 @@ class NeuralStream {
       });
 
       futureResult.then((output) {
-        if (subscription.remember) {
-          Call call = Call(
-              input: trigger,
-              output: output,
-              error: subscriptionException,
-              started: started,
-              ended: DateTime.now());
-          subscription.calls.add(call);
-        }
+          subscription.calls.add(
+              Call(
+                input: trigger,
+                output: output,
+                error: subscriptionException,
+                started: started,
+                ended: DateTime.now()
+              )
+          );
 
         if (output == null) return;
 

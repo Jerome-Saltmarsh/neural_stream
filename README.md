@@ -35,14 +35,14 @@ void main() {
 ```
 
 ## Trigger Custom Events
-You can subscribe to any type. *Note a trigger should be immutable.*
+You can subscribe to any type. *Note: a trigger should be immutable.*
 ``` Dart
 class HelloWorld {
   final String message;
   HelloWorld(this.message);
 }
 
-stream.subscribe((HelloWorld helloWorld) async {
+stream.listen((HelloWorld helloWorld) async {
     print(helloWorld.message);
 });
 
