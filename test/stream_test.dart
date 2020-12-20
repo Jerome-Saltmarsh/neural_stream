@@ -20,6 +20,24 @@ void main() {
     stream.add(2); // output: sub: 4
   });
 
+  test('chain reactions', () async {
+
+    NeuralStream stream = NeuralStream();
+
+    stream.listen((int number) async {
+      return (number + number).toString(); // this will trigger the text listener below.
+    });
+
+    stream.listen((String text) async {
+      print('sub: $text');
+    });
+
+    stream.add('hello'); // output: sub: hello
+    stream.add(2); // output: sub: 4
+  });
+
+
+
   test('limited calls', () async {
 
     NeuralStream stream = NeuralStream();
