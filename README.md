@@ -69,11 +69,17 @@ stream.add(2); // outputs 'sub 3: 4'
 ```
 
 ## Chain Reactions
+In this example the first listener function accepts an integer. It doubles it and then returns it as
+a string. 
+
+That string value will be automatically fed back into the stream where it will be passed into the 
+next function which takes a text argument and simply prints it. 
+
 ``` Dart
 NeuralStream stream = NeuralStream();
 
-stream.listen((int number) async {
-    return (number + number).toString(); // this will trigger the text listener below.
+stream.listen((int value) async {
+    return (value + value).toString(); // this will trigger the text listener below.
 });
 
 stream.listen((String text) async {
