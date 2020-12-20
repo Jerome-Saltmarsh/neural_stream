@@ -1,8 +1,8 @@
 # Neural Stream
-Neural stream is a library designed to simplify reactive programming and introduces a new paradigm 
-called neurologically oriented programming.
+Neural stream is a library designed to simplify reactive programming using a new paradigm called 
+neurologically oriented programming.
 
-It provides an interface exactly like a normal stream to make it easy to pickup for anyone already 
+It provides an interface similar to a regular stream to make it easy to pickup for anyone already 
 familiar with streams however with several key differences.
 
 1. **Not Type Bound** Unlike a regular stream a neural stream is not bound to a specific type <T>. 
@@ -123,11 +123,25 @@ stream.add('hello after subscription cancelled');
 
 ## Neurologically Oriented Programming
 
-As you have likely assumed the term neural is refers to the brain. But what does a stream have to 
-do with neurology? 
+As you have likely assumed the term neural refers to the brain but you may wonder how the two 
+correlate.
 
-From wikipedia 'A neural network is a network or circuit of neuron' 
+**Wikipedia Definitions** 
 
-The neural stream is analogous to the brain. Each subscription is a neuron and the 'events' or 
+***Neuron*** 
+A neuron or nerve cell is an electrically excitable cell that communicates with other cells via 
+specialized connections called synapses. 
+
+***Neural Network***
+A neural network is a network or circuit of neurons, or in a modern sense, an artificial neural 
+network, composed of artificial neurons or nodes
+
+***Synapse***
+In the nervous system, a synapse[2] is a structure that permits a neuron (or nerve cell) to pass an 
+electrical or chemical signal to another neuron or to the target effector cell.
+
+The neural stream is analogous to the brain. 
+
+In a neural stream Each subscription is a neuron and the 'events' or 
 'triggers' represent the electric signals that pass through our brain.
 
