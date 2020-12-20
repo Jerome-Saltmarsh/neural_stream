@@ -1,15 +1,18 @@
 # Neural Stream
 Neural stream is a library designed to simplify reactive programming.
 
-It provides an interface exactly like a normal stream to make it easy to pickup for 
-anyone already familiar with streams however with several key differences.
+It provides an interface exactly like a normal stream to make it easy to pickup for anyone already 
+familiar with streams however with several key differences.
 
-1. **Not Type Bound** Unlike a regular stream a neural stream is not bound to a specific type. 
-This allows the user to manage all their events from a single stream.
+1. **Not Type Bound** Unlike a regular stream a neural stream is not bound to a specific type <T>. 
+Instead anything can be added to the stream and only a single stream is required to handle all 
+events.
 
 2. **Automatic Event Chaining**
-If the listener function returns a value it will automatically be fed back into the stream. This provides a mechanism for chaining reactions together without pulling the stream into the 
-scope of the reaction. The same is occurs with any exceptions thrown during a listener's computation.
+If a stream's listener function returns a value, that value will automatically be fed back into the 
+stream. This provides a mechanism for chaining reactions together without the listener function 
+itself having to be aware of the stream. The same occurs to any exceptions thrown inside listener 
+function
 
 ## Hello World
 ``` Dart
@@ -43,7 +46,6 @@ stream.add(HelloWorld('this is an example'));
 ```
 
 ## Multiple subscriptions of same type
-You are not bound to listening to a trigger by just one listener
 Any number of listeners of the same type can be created.
 ``` Dart
 NeuralStream stream = NeuralStream();
@@ -106,15 +108,6 @@ stream.cancel(subscription);
 stream.add('hello after subscription cancelled'); 
 // output: sub 1: hello before subscription cancelled
 ```
-
-## Why Neural Stream?
-A normal stream is bound to a specific type <T> which means that one needs many streams to support
-different kinds of events. Super stream is not bound to a generic and can receive any object type
-
-Another key difference of the super stream architecture is that it automatically passes the result 
-of the reaction back into the stream which binds the reactions together without the user manually
-having to connect them.
-
 
 ## Neurologically Oriented Programming
 The inspiration for this architecture came from the brain. 
